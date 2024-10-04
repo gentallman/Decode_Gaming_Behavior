@@ -1,4 +1,4 @@
-<h1 align="center"> Decode Gaming Behavior </h1>
+<h1 align="center"> Decode Gaming Behavior using SQL</h1>
 
 <p align="center">
         <img src="https://github.com/user-attachments/assets/f2862a49-7508-4490-8241-9918e5aaa8cb" width=100>
