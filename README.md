@@ -57,9 +57,9 @@ join level_details2 ld ON pd.P_ID = ld.P_ID
 where ld.level = 0;
 ```
 
+
+### Q2) Find Level1_code wise Avg_Kill_Count where lives_earned is 2 and atleast 3 stages are crossed.
 ```sql
--- Q2) Find Level1_code wise Avg_Kill_Count where lives_earned is 2 and atleast
---    3 stages are crossed
 select 
 	pd.L1_code as Level1_code, 
 	avg(ld.kill_count) as Avg_Kill_Count 
