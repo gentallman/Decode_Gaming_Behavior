@@ -1,10 +1,9 @@
 <h1 align="center"> Decode Gaming Behavior </h1>
 
 <p align="center">
-        <img src="https://github.com/gentallman/Decode_Gaming_Behavior/blob/c6b9636b348def9af275f1586f64b7e5de9f00ef/player.gif" width=100>
+        <img src="https://github.com/user-attachments/assets/f2862a49-7508-4490-8241-9918e5aaa8cb" width=100>
 	<img src="https://github.com/user-attachments/assets/a0925af4-0ea8-462e-9fb1-571a70879e6f" width=100>
 </p>
-
 
 
 ### Introduction  
