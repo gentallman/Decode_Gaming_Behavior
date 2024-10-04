@@ -2,7 +2,9 @@
 
 <p align="center">
         <img src="https://github.com/gentallman/Decode_Gaming_Behavior/blob/c6b9636b348def9af275f1586f64b7e5de9f00ef/player.gif" width=100>
+	<img src="https://github.com/user-attachments/assets/a0925af4-0ea8-462e-9fb1-571a70879e6f" width=100>
 </p>
+
 
 
 In the immersive world of gaming, understanding player behavior is like solving a maze. Picture diving into a huge gaming dataset where every click and move gives insight into the player's journey. That's what we're doing in this project. We're not just crunching numbers; we're deciphering the language of gamers – how they tackle challenges, overcome obstacles, and celebrate victories.
