@@ -61,10 +61,8 @@ where Lives_Earned = 2 and Stages_crossed >= 3
 group by L1_code;
 ```
 
+### Q3) Find the total number of stages crossed at each diffuculty level where for Level2 with players use zm_series devices. Arrange the result in decsreasing order of total number of stages crossed.
 ```sql
--- Q3) Find the total number of stages crossed at each diffuculty level
--- where for Level2 with players use zm_series devices. Arrange the result
--- in decsreasing order of total number of stages crossed.
 select 
 	Difficulty as Difficulty_level, 
 	sum(Stages_crossed) as Total_Stages_Crossed 
@@ -74,9 +72,8 @@ group by Difficulty
 order by Total_Stages_Crossed desc;
 ```
 
+### Q4) Extract P_IDand the total number of unique dates for those players  who have played games on multiple days.
 ```sql
--- Q4) Extract P_IDand the total number of unique dates for those players 
--- who have played games on multiple days.
 select 
 	P_ID, 
 	count(distinct cast(timestamp as date)) as Total_Unique_Dates  
@@ -85,9 +82,8 @@ group by P_ID
 having count(distinct cast(timestamp as date)) > 1
 ```
 
+### Q5) Find P_ID and level wise sum of kill_counts where kill_count is greater than  avg kill count for the Medium difficulty.
 ```sql
--- Q5) Find P_ID and level wise sum of kill_counts where kill_count is greater than 
---avg kill count for the Medium difficulty.
 select
 	P_ID, 
 	level, 
@@ -98,9 +94,8 @@ and kill_count > (select avg(kill_count) from level_details2 where Difficulty = 
 group by P_ID, level;
 ```
 
+### Q6)  Find Level and its corresponding Level code wise sum of lives earned excluding level 0. Arrange in asecending order of level.
 ```sql
--- Q6)  Find Level and its corresponding Level code wise sum of lives earned 
--- excluding level 0. Arrange in asecending order of level.
 select
 	ld.level as Level,
 	pd.L1_code as Level1_Code,
@@ -113,9 +108,8 @@ group by ld.level, pd.L1_Code, pd.L2_code
 order by ld.level ASC;
 ```
 
+### Q7) Find Top 3 score based on each dev_id and Rank them in increasing order using Row_Number. Display difficulty as well. 
 ```sql
--- Q7) Find Top 3 score based on each dev_id and Rank them in increasing order
--- using Row_Number. Display difficulty as well. 
 with Top_3_Score as (
 	select 
 		Dev_ID,
@@ -134,8 +128,8 @@ where Row_Num <= 3
 order by Dev_ID, Row_Num;
 ```
 
+### Q8) Find first_login datetime for each device id
 ```sql
--- Q8) Find first_login datetime for each device id
 select 
 	Dev_ID,
 	min(TimeStamp) as First_Login
@@ -143,9 +137,8 @@ from level_details2
 group by Dev_ID
 ```
 
+### Q9) Find Top 5 score based on each difficulty level and Rank them in  increasing order using Rank. Display dev_id as well.
 ```sql
--- Q9) Find Top 5 score based on each difficulty level and Rank them in 
--- increasing order using Rank. Display dev_id as well.
 with Top_5_score as (
 	select
 		Difficulty,
@@ -164,10 +157,8 @@ where Rank_Score <=5
 order by Difficulty, Rank_Score
 ```
 
+### Q10) Find the device ID that is first logged in(based on start_datetime) for each player(p_id). Output should contain player id, device id and first login datetime.
 ```sql
--- Q10) Find the device ID that is first logged in(based on start_datetime) 
--- for each player(p_id). Output should contain player id, device id and 
--- first login datetime.
 with RankedLogins as (
     select
         P_ID,
@@ -184,11 +175,10 @@ from RankedLogins
 where login_rank = 1;
 ```
 
-```sql
--- Q11) For each player and date, how many kill_count played so far by the player. That is, the total number of games played 
--- by the player until that date.
+### Q11) For each player and date, how many kill_count played so far by the player. That is, the total number of games played by the player until that date.
 
--- a) window function
+#### a) window function
+```sql
 with Player_Game_Summary as (
 	select
 		P_ID,
@@ -214,8 +204,10 @@ select
 	Total_Game_Played
 from Player_Total_Game_Summary
 order by P_ID, game_date
+```
 
--- b) without window function
+#### b) without window function
+```sql
 select 
 	ld.P_ID,
     convert(date, ld.TimeStamp) as game_date,
@@ -236,8 +228,8 @@ order by
     game_date;
 ```
 
+### Q12) Find the cumulative sum of stages crossed over a start_datetime.
 ```sql
--- Q12) Find the cumulative sum of stages crossed over a start_datetime 
 select
     TimeStamp,
     stages_crossed,
@@ -245,9 +237,8 @@ select
 from level_details2
 ```
 
+### Q13) Find the cumulative sum of an stages crossed over a start_datetime for each player id but exclude the most recent start_datetime.
 ```sql
--- Q13) Find the cumulative sum of an stages crossed over a start_datetime 
--- for each player id but exclude the most recent start_datetime
 select 
     ld.P_ID,
     max(ld.TimeStamp) as TimeStamp,
@@ -257,8 +248,8 @@ where ld.TimeStamp < (select max(TimeStamp) from level_details2 where P_ID = ld.
 group by ld.P_ID;
 ```
 
+### Q14) Extract top 3 highest sum of score for each device id and the corresponding player_id.
 ```sql
--- Q14) Extract top 3 highest sum of score for each device id and the corresponding player_id
 with Top_3_score as (
     select
         Dev_ID,
@@ -277,9 +268,8 @@ where Row_Num <= 3
 order by Dev_ID, total_score desc;
 ```
 
+### Q15) Find players who scored more than 50% of the avg score scored by sum of scores for each player_id.
 ```sql
--- Q15) Find players who scored more than 50% of the avg score scored by sum of 
--- scores for each player_id
 with PlayerTotalScore as (
     select 
 		P_ID, 
@@ -293,10 +283,8 @@ from PlayerTotalScore
 where total_score > (select avg(total_score) * 0.5 from PlayerTotalScore);
 ```
 
+### Q16) Create a stored procedure to find top n headshots_count based on each dev_id and Rank them in increasing order using Row_Number. Display difficulty as well.
 ```sql
--- Q16) Create a stored procedure to find top n headshots_count based on each dev_id and Rank them in increasing order
--- using Row_Number. Display difficulty as well.
-
 create procedure TopNHeadshotsCount (@N int)
 as
 begin
@@ -324,8 +312,8 @@ end;
 exec TopNHeadshotsCount @N = 5;	
 ```
 
+### Q17) Create a function to return sum of Score for a given player_id.
 ```sql
--- Q17) Create a function to return sum of Score for a given player_id.
 create function dbo.GetTotalScoreForPlayer( @player_id int)
 returns int 
 as
@@ -340,7 +328,6 @@ end;
 --run this following to execute the following with passing values
 select dbo.GetTotalScoreForPlayer(211) as TotalScoreForPlayer;
 ```
-
 
 ## Contact
 
